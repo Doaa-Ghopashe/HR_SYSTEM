@@ -6,20 +6,38 @@
             </div>
             <div class="col-xl-6">
                 <h1 class="mb-5">Login</h1>
-                <form>
+                <form [formGroup]="loginform" (ngSubmit)="login()">
                     <div class="form-group mb-4">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                            placeholder="Enter email">
+                        <input formControlName="email" type="email" class="form-control" id="email"
+                            aria-describedby="emailHelp" placeholder="Enter email">
+                        <div id="titleHelp" class="form-text text-danger" *ngIf="
+                              loginform.controls['email'].touched &&
+                              loginform.controls['email'].invalid
+                            ">
+                            <span *ngIf="loginform.controls['email'].errors?.['required']">
+                                This field is required
+                            </span>
+                            <span *ngIf="loginform.controls['email'].errors?.['email']"> it should be user@example.com </span>
+                        </div>
                     </div>
                     <div class="form-group mb-4">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <input formControlName="password" type="password" class="form-control" id="password"
+                            placeholder="Password">
+                        <div id="titleHelp" class="form-text text-danger" *ngIf="
+                              loginform.controls['password'].touched &&
+                              loginform.controls['password'].invalid
+                            ">
+                            <span *ngIf="loginform.controls['title'].errors?.['required']">
+                                This field is required
+                            </span>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="loginform.invalid">Submit</button>
                 </form>
             </div>
         </div>
-    
+
     </div>
 </div>

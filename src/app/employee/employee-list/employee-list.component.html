@@ -1,0 +1,31 @@
+<div class="container-fluid pt-3 ">
+    <a class="float-end btn btn-success mb-3" routerLink="add">
+        Add Employee
+        <i class="fa-solid fa-user-plus"></i>
+    </a>
+    <table class="table table-striped  table-dark table-bordered">
+        <thead class="thead-dark text-uppercase border-bottom">
+            <tr>
+                <th c scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let employee of employees">
+            <tr>
+                <td>{{employee.first_name}}</td>
+                <td>{{employee.last_name}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.role}}</td>
+                <td class="text-center">
+                    <a class="btn btn-warning" routerLink="edit">
+                        Edit Info
+                        <i class="fa-solid fa-user-pen"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
