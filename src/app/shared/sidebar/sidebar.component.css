@@ -1,0 +1,5 @@
+.sidebar {
+    height: 90vh; /* Set initial height to occupy full viewport height */
+    overflow-y: auto; /* Enable scrolling if sidebar content exceeds viewport height */
+    border-top: 0.5px solid rgb(98, 98, 98);
+  }
