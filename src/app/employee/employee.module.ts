@@ -6,6 +6,7 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { AttendanceScheduleComponent } from './attendance-schedule/attendance-schedule.component';
 const routes: Routes = [
   {
     path: '',
@@ -16,8 +17,12 @@ const routes: Routes = [
     component:EmployeeAddComponent
   },
   {
-    path:'edit',
+    path:'edit/:id',
     component:EmployeeEditComponent
+  },
+  {
+    path:'attendance/:id',
+    component:AttendanceScheduleComponent
   }
 ];
 
@@ -25,7 +30,8 @@ const routes: Routes = [
   declarations: [
     EmployeeAddComponent,
     EmployeeEditComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    AttendanceScheduleComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +43,8 @@ const routes: Routes = [
   exports:[
     EmployeeAddComponent,
     EmployeeEditComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    AttendanceScheduleComponent
   ]
 })
 export class EmployeeModule { }

@@ -1,0 +1,48 @@
+<div class="container-fluid py-3">
+    <h1 class="text-center">Attendance Schedule</h1>
+    <input type="month" [(ngModel)]="selectedDate" (change)="generateCalendar()" id="start" name="start" min="2018-03"
+        [value]="currentDate | date:'yyyy-MM'" />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Shift Start Time</th>
+                <th>Actual Start Time</th>
+                <th>Shift End Time</th>
+                <th>Actual End Time</th>
+                <th>Extra Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let week of calendar">
+                <tr *ngFor="let day of week">
+                    <td>{{ day.dayName }}, {{ day.day }}</td>
+                    <td>
+                        <select >
+                            <option>Present</option>
+                            <option>Late</option>
+                            <option>OFF</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="time" value="08:00">
+                    </td>
+                    <td>
+                        <input type="time" value="08:00">
+                    </td>
+                    <td>
+                        <input type="time" value="08:00">
+                    </td>
+                    <td>
+                        <input type="time" value="08:00">
+                    </td>
+                    <td>
+                        0
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

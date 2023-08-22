@@ -1,27 +1,66 @@
 <div class="container-fluid py-3">
     <h1 class="text-center">Edit Employee</h1>
-    <form >
+    <form [formGroup]="editForm">
         <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Enter The First Name" id="first_name">
+            <input type="text" formControlName="firstName" class="form-control" placeholder="Enter The First Name" id="first_name">
+            <div id="firstnameHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" 
+            *ngIf=" editForm.controls['firstName'].touched && editForm.controls['firstName'].invalid">
+                <span *ngIf="editForm.controls['firstName'].errors?.['required']">
+                    This field is required.
+                </span>
+                <span *ngIf="editForm.controls['firstName'].errors?.['maxlength']"> 
+                    It must be less than 10 characters.
+                </span>
+                <span *ngIf="editForm.controls['firstName'].errors?.['minlength']"> 
+                    It must be more than 3 characters 
+                </span>
+            </div>
         </div>
         <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Enter The Last Name" id="last_name">
+            <input type="text" formControlName="lastName" class="form-control" placeholder="Enter The Last Name" id="last_name">
+            <div id="lastnameHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
+            editForm.controls['lastName'].touched &&
+            editForm.controls['lastName'].invalid
+          ">
+                <span *ngIf="editForm.controls['lastName'].errors?.['required']">
+                    This field is required
+                </span>
+                <span *ngIf="editForm.controls['lastName'].errors?.['maxlength']"> 
+                    It must be less than 10 characters.
+                </span>
+                <span *ngIf="editForm.controls['lastName'].errors?.['minlength']"> 
+                    It must be more than 3 characters.
+                </span>
+
+            </div>
         </div>
         <div class="mb-3">
-            <input type="email"class="form-control" placeholder="Enter The Email Address" id="email">
+            <input type="email" formControlName="email" class="form-control" placeholder="Enter The Email Address" id="email">
+            <div id="emailHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
+            editForm.controls['email'].touched &&
+            editForm.controls['email'].invalid
+          ">
+                <span *ngIf="editForm.controls['email'].errors?.['required']">
+                    This field is required.
+                </span>
+                <span *ngIf="editForm.controls['email'].errors?.['email']"> 
+                    It must be like this pattern User@Example.Com .
+                </span>
+
+            </div>
         </div>
         <div class="mb-3">
             <label for="role-list" class="form-label">Role</label>
-            <select id="role-list" class="form-select">
+            <select id="role-list" formControlName="role" class="form-select">
                 <option value="HR">HR</option>
-                <option value="financial_officer">Financial Officer</option>
-                <option value="accountant">Accountant</option>
-                <option value="devops">DevOps</option>
-                <option value="customer_service">Customer Service</option>
-                <option value="marketing_coordinator">Marketing Coordinator</option>
+                <option value="Financial Officer">Financial Officer</option>
+                <option value="Accountant">Accountant</option>
+                <option value="DevOps">DevOps</option>
+                <option value="Customer Service">Customer Service</option>
+                <option value="Marketing Coordinator">Marketing Coordinator</option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-success d-block m-auto" >Add</button>
+        <button type="submit" class="btn btn-warning d-block m-auto" >Update</button>
     </form>
 </div>

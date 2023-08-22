@@ -6,8 +6,8 @@
     <table class="table table-striped  table-dark table-bordered">
         <thead class="thead-dark text-uppercase border-bottom">
             <tr>
-                <th c scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+                <th>#</th>
+                <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
                 <th scope="col"></th>
@@ -15,14 +15,18 @@
         </thead>
         <tbody *ngFor="let employee of employees">
             <tr>
-                <td>{{employee.first_name}}</td>
-                <td>{{employee.last_name}}</td>
+                <td>{{employee.id}}</td>
+                <td>{{employee.first_name}} {{employee.last_name}}</td>
                 <td>{{employee.email}}</td>
                 <td>{{employee.role}}</td>
                 <td class="text-center">
-                    <a class="btn btn-warning" routerLink="edit">
+                    <a class="btn btn-warning mx-3" [routerLink]="['edit',employee.id]">
                         Edit Info
                         <i class="fa-solid fa-user-pen"></i>
+                    </a>
+                    <a class="btn btn-info" [routerLink]="['attendance',employee.id]">
+                       Attendance Schedule
+                       <i class="fa-solid fa-business-time"></i>
                     </a>
                 </td>
             </tr>
