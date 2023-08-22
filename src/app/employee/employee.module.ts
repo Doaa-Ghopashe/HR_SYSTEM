@@ -4,7 +4,8 @@ import { EmployeeAddComponent } from './employee-add/employee-add.component';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { RouterModule, Routes } from '@angular/router';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 const routes: Routes = [
   {
     path: '',
@@ -30,6 +31,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule,
     RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     EmployeeAddComponent,
