@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,18 +9,30 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username!: string;
-  password!: string;
 
-  // constructor(private authService: AuthService) {}
-  loginform:FormGroup;
-  constructor(){
+  loginform: FormGroup;
+
+  constructor(private _router: Router, private auth: AuthService) {
     this.loginform = new FormGroup({
-      email:new FormControl(null,[Validators.required , Validators.email]),
-      password: new FormControl(null,[Validators.required ])
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required])
     });
   }
   login(): void {
-    console.log(this.loginform);
+
+    if (this.loginform.status == 'INVALID') {
+      return;
+    }
+    this.auth.login(this.loginform.value).subscribe(
+      {
+        next: res => {
+          localStorage.setItem("token", res.token);
+          this.auth.setLoggedIn(true)
+          this._router.navigateByUrl('/dashboard');
+        },
+        error: err => alert(err.error.message),
+        complete: () => {
+        }
+      })
   }
 }

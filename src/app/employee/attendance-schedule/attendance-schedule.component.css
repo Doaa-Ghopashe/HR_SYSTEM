@@ -11,6 +11,7 @@ select {
     background-color: white;
     appearance: none;
     text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ,'FontAwesome', 'Second Font name';
 }
 
 select option {
@@ -47,6 +48,6 @@ select:focus {
 
 .name {
     width: fit-content;
-    font-size: 35px;
-    font-weight: 500;
+    font-size: 36px;
+    font-weight: 300;
 }

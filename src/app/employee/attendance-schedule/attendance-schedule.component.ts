@@ -11,16 +11,22 @@ export class AttendanceScheduleComponent {
   employees!:Employee[];
   currentDate: string;
   selectedDate: string;
-  calendar: { day: number, dayName: string }[][] = [];
+  calendar: { day: number, dayName: string , isVacation:boolean}[][] = [];
   employee_id!:number;
   status:string = "present";
   employeeData!:Employee;
   name_abr!:string;
+  isCurrentDate(day: { day: number, dayName: string, isVacation: boolean }): boolean {
+    const currentDate = new Date();
+    const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day.day);
+
+    return dayDate.toDateString() === currentDate.toDateString();
+  }
   officialVacations: Date[] = [
     new Date('2023-8-25'),
     new Date('2023-8-31'),
     new Date('2024-01-01'),
-    // Add more dummy vacation dates as needed
+    new Date('2023-9-10')
   ];
   constructor(private route: ActivatedRoute) {
     this.employees=[
@@ -64,7 +70,7 @@ export class AttendanceScheduleComponent {
         this.calendar.push(week);
         week = [];
       }
-      console.log(this.calendar)
+  
       currentDay.setDate(currentDay.getDate() + 1);
     }
   }

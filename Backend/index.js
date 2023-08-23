@@ -7,6 +7,8 @@ const express = require('express');
 
     cors = require('./Middleware/corsmiddelware'),
 
+
+    
     auth = require('./Middleware/auth'),
 
     user = require('./routes/user'),
@@ -26,15 +28,15 @@ const express = require('express');
 
 app_server.use(express.json());
 
-app_server.use(cors)
+app_server.use(cors);
 
-app_server.use(user)
+app_server.use(user);
 
-app_server.use('/employess', auth.verifyToken, employee)
+app_server.use('/employess', auth.verifyToken, employee);
 
-app_server.use('/schedule', auth.verifyToken, schedule)
+app_server.use('/schedule', auth.verifyToken, schedule);
 
-app_server.use(error_handler)
+app_server.use(error_handler);
 
 
 app_server.listen(PORT, (err) => {

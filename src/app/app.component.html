@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <main class="d-flex">
-<app-sidebar></app-sidebar>  
+<app-sidebar *ngIf="isLoggedIn"></app-sidebar>  
 <router-outlet ></router-outlet>  
 </main>
 

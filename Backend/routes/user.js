@@ -35,8 +35,6 @@ router.post('/login', async (req, res) => {
         );
         // Save the token to the user document
         user.token = token;
-        // Store the token in the local storage
-        localStorage.setItem('token', token);
 
         // Return the user with the token
         return res.status(200).json(user);

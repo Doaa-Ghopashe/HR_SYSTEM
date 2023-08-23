@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EmployeeModule } from './employee/employee.module';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { HomeComponent } from './home/home.component';
     FormsModule ,
     RouterModule,
     ReactiveFormsModule,
-    EmployeeModule
+    EmployeeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
