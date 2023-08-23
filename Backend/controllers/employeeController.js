@@ -1,51 +1,82 @@
-const employeeModel = require('../models/employee');
+const employeeModel = require('../models/employee'),
 
-function add(req, res) {
-    employeeModel.create({ ...req.body }, (err, userData) => {
-        if (!err) return res.status(201).json(userData);
-        res.status(500).json({ Error: "DB error" });
-    })
-}
+    add = async (req, res) => {
+        try {
 
-function list(req, res) {
-    let employees = []
-    employeeModel.find({}, (err, data) => {
-        employees = data
-        if (!err) return res.status(201).json(authors);
-        res.status(500).json({ Error: "DB error" });
-    })
-}
+            const employeeData = await employeeModel.create({ ...req.body });
 
-
-function getById(req, res) {
-    const { id } = req.params
-    employeeModel.findById(id, (err, data) => {
-        employee = data
-        if (!err) return res.status(200).json(employee)
-        res.status(500).json({ Error: "DB_error" })
-    })
-}
-
-
-function edit(req, res) {
-    const { id } = req.params
-    let { firstName } = req.body
-    let { lastName } = req.body
-    let { email } = req.body
-    let { role } = req.body
-    employeeModel.findByIdAndUpdate(id, { firstName, lastName, email, role }, (err) => {
-        if (!err) {
-            employeeModel.findById(id, (err, data) => {
-                if (!err) return res.status(201).json(data)
-                console.log(err)
-                res.status(500).json({ Error: "DB_error" })
-            })
+            res.status(200).json({
+                status: "success",
+                data: {
+                    employeeData,
+                },
+            });
+        } catch (error) {
+            res.status(404).json({
+                status: "failed",
+                err: error.message,
+            });
         }
-        else {
-            console.log(err);
-        }
-    })
+    },
 
-}
+    list = async (req, res) => {
+        try {
+            let employees = await employeeModel.find();
+            res.status(200).json({
+                status: "success",
+                data: {
+                    employees,
+                },
+            });
+        } catch {
+            res.status(404).json({
+                status: "failed",
+                err: error.message,
+            });
+        }
+    },
+
+    getById = async (req, res) => {
+        try {
+            const { id } = req.params
+            const employeeData = await employeeModel.findById({ _id: id });
+
+            res.status(200).json({
+                status: "success",
+                data: {
+                    employeeData,
+                },
+            });
+        } catch (error) {
+            res.status(404).json({
+                status: "failed",
+                err: error.message,
+            });
+        }
+
+    },
+
+    edit = async (req, res) => {
+        try {
+            const { id } = req.params;
+            const data = {
+                firstName: req.body.firstname,
+                lastName: req.body.lastname,
+                email: req.body.email,
+                role: req.body.role,
+            };
+            await employeeModel.findOneAndUpdate({ _id: id }, data);
+            res.status(200).json({
+                status: "success",
+                data: "Updated employee info successfully",
+            });
+        } catch (error) {
+            res.status(401).json({
+                status: "failed",
+                err: error.message,
+            });
+        }
+    };
+
 
 module.exports = { add, list, getById, edit }

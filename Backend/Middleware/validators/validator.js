@@ -37,18 +37,4 @@ check('desc')
  .isLength({min:10}).withMessage("Min length is 3"),
 
 ];
-const addCategoryValidateRule=[
-
-    body('Name').isString().withMessage("this field accept string only")
-                 .notEmpty().withMessage("this field is required")
-                 .isLength({min:3}).withMessage("Min length is 3"),
-
-]
-const updateCategoryValidateRule=[
-    check('Name')
-    .optional()
-    .isString().withMessage("this field accept string only")
-    .notEmpty().withMessage("this field is required")
-    .isLength({min:3}).withMessage("Min length is 3")
-]
-module.exports={addEmployeeValidator,updateEmployeeValidator,addCategoryValidateRule,updateCategoryValidateRule}
+module.exports={addEmployeeValidator,updateEmployeeValidator}

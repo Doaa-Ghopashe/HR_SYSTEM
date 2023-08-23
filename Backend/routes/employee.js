@@ -4,7 +4,7 @@ const express = require('express'),
 
     router = express.Router(),
 
-    { addEmployeeValidator, updateEmployeeValidator } = require('../validators/validator.js'),
+    { addEmployeeValidator, updateEmployeeValidator } = require('../Middleware/validators/validator.js'),
 
     { validate } = require('../Middleware/validation/validator.js');
 
