@@ -1,15 +1,15 @@
-const express=require('express'),
+const express = require('express'),
 
-reservedBookRouter=express.Router(),
+    reservedBookRouter = express.Router(),
 
-scheduleController=require('../controllers/reservedBooksController');
+    scheduleController = require('../controllers/scheduleController');
 
-reservedBookRouter.get('/:id',scheduleController.getOneReservedBook);
+reservedBookRouter.get('/:id', scheduleController.scheduleList);
 
-reservedBookRouter.get('/',scheduleController.getAllReservedBooks);
+reservedBookRouter.get('/', scheduleController.userScheduleList);
 
-reservedBookRouter.post('/',scheduleController.reserveBook);
+reservedBookRouter.post('/', scheduleController.addSchedule);
 
-reservedBookRouter.put('/:id',scheduleController.editReservedBook);
+reservedBookRouter.put('/:id', scheduleController.editSchedule);
 
-module.exports=reservedBookRouter;
+module.exports = reservedBookRouter;
