@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
 const employeeSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId, unique: true, required: true },
-
   firstName: { type: String, trim: true, maxLength: 10, minLength: 3 },
 
   lastName: { type: String, trim: true, maxLength: 10, minLength: 3 },
