@@ -14,7 +14,7 @@ export class EmployeeEditComponent {
   editForm!:FormGroup
   employee_id!:number;
   employeeData!:Employee;
-
+ 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.employees=[
       {"id":1,"first_name":"Doaa","last_name":"Adel","email":"doaaadel@yahoo.com","role":"DevOps"},
@@ -38,7 +38,7 @@ export class EmployeeEditComponent {
     this.employeeData = this.employees.filter((employee)=>{
       return employee.id == this.employee_id;
     })[0];
-
+    
     this.editForm.patchValue({
       firstName: this.employeeData .first_name,
       lastName: this.employeeData .last_name,

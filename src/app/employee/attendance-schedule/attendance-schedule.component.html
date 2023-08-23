@@ -1,11 +1,18 @@
 <div class="container-fluid py-3">
     <h1 class="text-center">Attendance Schedule</h1>
-    <input type="month" [(ngModel)]="selectedDate" (change)="generateCalendar()" id="start" name="start" min="2018-03"
-        [value]="currentDate | date:'yyyy-MM'" />
+    <div class="d-flex justify-content-between align-items-center" >
+        <div class="d-flex">
+            <h1 class=" text-center bg-warning rounded-circle name border border-dark p-3">{{name_abr}} </h1>
+            <span class="text-center fw-light fs-5">{{employeeData.first_name}}</span>
+            <span class="text-center d-block ms-1 fs-5 fw-light ">{{employeeData.last_name}}</span>
+        </div>
+        <input type="month" class="btn btn-info py-2 h-100" [(ngModel)]="selectedDate" (change)="generateCalendar()" id ="start" name="start" min="2018-03"
+            [value]="currentDate | date:'yyyy-MM'" />
+    </div>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
+    <table class="table  table-bordered text-center table-striped">
+        <thead >
+            <tr class="thead-dark table-dark fs-6">
                 <th>Date</th>
                 <th>Status</th>
                 <th>Shift Start Time</th>
@@ -15,30 +22,32 @@
                 <th>Extra Hours</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="vertical-align: middle;" >
             <ng-container *ngFor="let week of calendar">
-                <tr *ngFor="let day of week">
-                    <td>{{ day.dayName }}, {{ day.day }}</td>
+                
+                <tr *ngFor="let day of week " [ngClass]="{ 'disabled-row': day.dayName === 'Fri' }">
+                    <td >{{ day.dayName }}, {{ day.day }} {{day.isVacation}}</td>
                     <td>
-                        <select >
-                            <option>Present</option>
-                            <option>Late</option>
-                            <option>OFF</option>
+                        <select [class]="status" id="status" (change)="statuschange($event)">
+                            <option *ngIf="day.dayName == 'Fri'" selected>WeekEnd</option>
+                            <option value="present">Present</option>
+                            <option value="late">Late</option>
+                            <option value="absent">Absent</option>
                         </select>
                     </td>
-                    <td>
-                        <input type="time" value="08:00">
+                    <td >
+                        <input class="border-0" type="time" value="08:00" disabled>
                     </td>
-                    <td>
-                        <input type="time" value="08:00">
+                    <td >
+                        <input class="border-0" type="time">
                     </td>
-                    <td>
-                        <input type="time" value="08:00">
+                    <td >
+                        <input class="border-0" type="time" value="16:00" disabled >
                     </td>
-                    <td>
-                        <input type="time" value="08:00">
+                    <td >
+                        <input class="border-0" type="time" >
                     </td>
-                    <td>
+                    <td >
                         0
                     </td>
                 </tr>

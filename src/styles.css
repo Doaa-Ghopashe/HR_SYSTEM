@@ -2,3 +2,6 @@
 html, body {
     min-height: 100vh;
 }
+:root{
+    --selectlist-color:green;
+}
