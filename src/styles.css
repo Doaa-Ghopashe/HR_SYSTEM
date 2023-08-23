@@ -1,4 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-html, body {
+html,
+body {
     min-height: 100vh;
+}
+
+img {
+    width: 100%;
+}
+
+main {
+    height: 100%;
+}
+
+:host {
+    width: 100%
 }

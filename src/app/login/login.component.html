@@ -1,16 +1,15 @@
 <div class="login-form">
     <div class="container-fluid py-3 h-100">
-        <div class="row align-items-center h-100">
-            <div class="col-xl-6">
-                <img src="../../assets/Img1.png">
+        <div class="row align-items-center h-100 justify-content-evenly">
+            <div class="col-xl-4">
+                <img src="../../assets/img1.png">
             </div>
-            <div class="col-xl-6">
-                <h1 class="mb-5">Login</h1>
+            <div class="col-xl-4">
+                <h1 class="mb-5 login-title">Login</h1>
                 <form [formGroup]="loginform" (ngSubmit)="login()">
                     <div class="form-group mb-4">
-                        <label for="email">Email</label>
-                        <input formControlName="email" type="email" class="form-control" id="email"
-                            aria-describedby="emailHelp" placeholder="Enter email">
+                        <input formControlName="email" type="email" class="form-control  border-0 rounded-0  border-bottom" id="email"
+                            aria-describedby="emailHelp" placeholder="Enter The Email">
                         <div id="titleHelp" class="form-text text-danger" *ngIf="
                               loginform.controls['email'].touched &&
                               loginform.controls['email'].invalid
@@ -22,19 +21,18 @@
                         </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="password">Password</label>
-                        <input formControlName="password" type="password" class="form-control" id="password"
-                            placeholder="Password">
+                        <input formControlName="password" type="password" class="form-control border-0 rounded-0 border-bottom" id="password"
+                            placeholder="Enter The Password">
                         <div id="titleHelp" class="form-text text-danger" *ngIf="
                               loginform.controls['password'].touched &&
                               loginform.controls['password'].invalid
                             ">
-                            <span *ngIf="loginform.controls['title'].errors?.['required']">
+                            <span *ngIf="loginform.controls['password'].errors?.['required']">
                                 This field is required
                             </span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" [disabled]="loginform.invalid">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-3 m-auto d-block" [disabled]="loginform.invalid">Submit</button>
                 </form>
             </div>
         </div>

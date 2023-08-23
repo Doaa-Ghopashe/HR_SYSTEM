@@ -1,0 +1,28 @@
+:host{
+    width: 100%;
+}
+img{
+    width: fit-content;
+}
+.para{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-image: url("../../assets/bg5.jpg");
+    background-repeat: round;
+    background-size:cover;
+}
+.para1{
+    background: #ffffff80;
+    padding: 20px;
+    backdrop-filter: blur(1px);
+    border-radius: 15px;
+    font-size: 18px;
+}
+.title2{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+p{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 20px;
+}

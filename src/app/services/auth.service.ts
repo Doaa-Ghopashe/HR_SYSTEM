@@ -32,8 +32,17 @@ export class AuthService {
   setLoggedIn(data:any) {
     this.isLoginSubject.next(data)
  }
+  canActivate(): boolean | Observable<boolean> {
+    let token = localStorage.getItem("token");
+    if (token) {
+      return true;
+    }
+    this._router.navigateByUrl("/user/login")
+    return false;
+  }
 
   logout() {
+    console.log("DSfdfsd");
     localStorage.removeItem('token');
     this.isLoginSubject.next(false);
     this._router.navigateByUrl('/login');

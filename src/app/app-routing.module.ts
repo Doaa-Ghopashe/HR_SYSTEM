@@ -4,15 +4,16 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
+import { loggedoutGuardGuard } from './guards/loggedout-guard.guard';
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    canActivate:[authGuardGuard]
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate:[loggedoutGuardGuard]
   },
   {
     path: 'employee',

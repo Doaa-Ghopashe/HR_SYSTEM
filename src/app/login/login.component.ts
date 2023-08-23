@@ -18,6 +18,7 @@ export class LoginComponent {
       password: new FormControl(null, [Validators.required])
     });
   }
+  
   login(): void {
 
     if (this.loginform.status == 'INVALID') {
