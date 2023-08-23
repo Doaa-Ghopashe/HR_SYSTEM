@@ -6,11 +6,11 @@ import { AppComponent } from './app.component';
 import { RouterModule} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { FormsModule } from '@angular/forms';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EmployeeModule } from './employee/employee.module';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 @NgModule({
