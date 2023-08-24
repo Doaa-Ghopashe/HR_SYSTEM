@@ -9,7 +9,7 @@ const employeeSchema = new mongoose.Schema({
 
   role: { type: String, required: true, enum: ['HR', 'normal employee'] },
   
-  password: { type: String, match: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/ }
+  password: { type: String }
 });
 
 employeeModel = mongoose.model('Employee', employeeSchema);

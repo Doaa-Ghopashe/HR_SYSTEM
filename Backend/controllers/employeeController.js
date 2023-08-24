@@ -1,4 +1,6 @@
 const employeeModel = require('../models/employee'),
+    
+    bcrypt = require('bcrypt'),
 
     add = async (req, res) => {
         try {

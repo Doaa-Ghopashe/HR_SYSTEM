@@ -42,6 +42,7 @@ export class EmployeeAddComponent {
       lastname: this.employeeForm.get('lastName')?.value,
       email: this.employeeForm.get('email')?.value,
       role: this.employeeForm.get('role')?.value,
+      password: this.employeeForm.get('password')?.value
     };
 
     this.employeeService.addEmployee(employeeData).subscribe(
@@ -53,6 +54,7 @@ export class EmployeeAddComponent {
               title: "employee add successfuly",
               showConfirmButton: false,
             })
+          location.replace("/employee");
         },
         error: err => {
           Swal.fire({
@@ -64,10 +66,6 @@ export class EmployeeAddComponent {
         complete: () => {
         }
       })
-      
-      
-
-      location.replace("/employee");
   }
 
   changeRole(e: any) {
