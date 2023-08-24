@@ -7,6 +7,8 @@ const express = require('express'),
 
 router.get('/:id', scheduleController.userScheduleList);
 
+router.post('/:id', scheduleController.searchExistence);
+
 router.post('/', scheduleController.addSchedule);
 
 router.put('/:id', scheduleController.editSchedule);

@@ -5,9 +5,8 @@ export interface Schedule {
     dayName: string;
     isVacation: boolean;
     status: string;
-    actualstarttime: string;
-    actualendtime: string;
-    shiftstarttime: string;
-    shiftendtime: string;
-    extratimes: number
+    actualStartTime: string;
+    actualEndTime: string;
+    shiftStartTime: string;
+    shiftEndTime: string;
 }

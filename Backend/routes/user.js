@@ -44,7 +44,6 @@ router.post('/login', async (req, res) => {
     // Invalid credentials
     return res.status(400).send('Invalid credentials');
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Internal Server Error');
   }
 });

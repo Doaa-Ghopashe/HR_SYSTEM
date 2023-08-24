@@ -16,7 +16,7 @@ select {
 }
 
 select option {
-    background: white;
+    background: rgb(108, 108, 108);
     padding: 0;
     margin: 0;
 }

@@ -17,37 +17,31 @@
                 <th>Actual Start Time</th>
                 <th>Shift End Time</th>
                 <th>Actual End Time</th>
-                <th>Extra Hours</th>
             </tr>
         </thead>
         <tbody style="vertical-align: middle;" >
-            <ng-container *ngFor="let week of Schedule; let i = index">
+            <ng-container *ngFor="let week of schedule; let i = index">
                 <tr *ngFor="let day of week ; let j = index " [ngClass]="{ 'disabled-row': day.dayName === 'Fri' || day.isVacation , 'table-primary':isCurrentDate(day)}">
                     <td >{{ day.dayName }}, {{ day.day }}</td>
                     <td>
                         <select [class]="day.status" [(ngModel)]="day.status" id="status" (change)="statuschange($event,i,j)">
-                            <option selected disabled value="">-- Status --</option>
-                            <option *ngIf="day.dayName == 'Fri'" selected>WeekEnd</option>
-                            <option *ngIf="day.isVacation" selected>Official Vacation</option>
+                            <option  selected disabled value="">-- Status --</option>
                             <option value="present"> &#xf00c; Present</option>
                             <option value="late">&#xf071; Late</option>
                             <option value="absent">&#xf2d3; Absent</option>
                         </select>
                     </td>
                     <td >
-                        <input class="border-0" type="time" [(ngModel)]="day.shiftstarttime" value="08:00" disabled>
+                        <input class="border-0" type="time" [(ngModel)]="day.shiftStartTime"  value="08:00" disabled>
                     </td>
                     <td >
-                        <input class="border-0" type="time" [(ngModel)]="day.actualstarttime" [disabled]="day.status == 'present' || day.status == 'absent' || day.status == ''">
+                        <input class="border-0" type="time" [(ngModel)]="day.actualStartTime" (change)="editSchedule(i,j)" [disabled]="day.status == 'present' || day.status == 'absent' || day.status == ''">
                     </td>
                     <td >
-                        <input class="border-0" type="time" [(ngModel)]="day.shiftendtime" value="16:00" disabled >
+                        <input class="border-0" type="time" [(ngModel)]="day.shiftEndTime"  value="16:00" disabled >
                     </td>
                     <td >
-                        <input class="border-0" type="time" [(ngModel)]="day.actualendtime" [disabled]="day.status == 'absent' || day.status == ''">
-                    </td>
-                    <td >
-                        0
+                        <input class="border-0" type="time" [(ngModel)]="day.actualEndTime" (change)="editSchedule(i,j)" [disabled]="day.status == 'absent' || day.status == ''">
                     </td>
                 </tr>
             </ng-container>

@@ -1,35 +1,28 @@
 const scheduleModel = require("../models/schedule"),
 
-  scheduleList = async (req, res) => {
-    // try {
-    //   //pagination
-    //   const queryObj = { ...req.query };
-    //   const excludedFields = ["page", "limit"];
-    //   excludedFields.forEach((el) => delete queryObj[el]);
-    //   let query = bookModel.find(queryObj);
-    //   const page = req.query.page * 1 || 1;
-    //   const limit = req.query.limit * 1 || 30;
-    //   const skip = (page - 1) * limit;
-    //   query = query.skip(skip).limit(limit);
-    //   //excute query
-    //   const book = await query
-    //     .populate({
-    //       path: "AuthorId",
-    //     })
-    //     .populate({
-    //       path: "categoryId",
-    //     });
-    //   //const book = await bookModel.find({});
-    //   res.status(200).json({
-    //     status: "success",
-    //     data: { book },
-    //   });
-    // } catch (error) {
-    //   res.status(401).json({
-    //     status: "failed",
-    //     err: error.message,
-    //   });
-    // }
+  searchExistence = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const targetDate = req.body.date;
+
+      const schedule = await scheduleModel.findOne({ employee_id: id, date: targetDate });
+      if (schedule) {
+        res.status(200).json({
+          status: "success",
+          data: schedule,
+        });
+      } else {
+        res.status(200).json({
+          status: "success",
+          data: false,
+        });
+      }
+    } catch (error) {
+      res.status(401).json({
+        status: "failed",
+        err: error.message,
+      });
+    }
   },
 
   userScheduleList = async (req, res) => {
@@ -49,20 +42,18 @@ const scheduleModel = require("../models/schedule"),
   },
 
   addSchedule = async (req, res) => {
-    
     try {
       let newDay = {
         date: (req.body.month < 10 ? "0" : "") + req.body.month + '-' + (req.body.day < 10 ? "0" : "") + req.body.day + '-' + req.body.year,
-        shift_start_time: req.body.shiftstarttime,
-        isVacation:req.body.isVacation,
-        shift_end_time: req.body.shiftendtime,
-        actualstarttime: req.body.actualstarttime,
-        actualendtime: req.body.actualendtime,
+        shiftStartTime: req.body.shiftStartTime,
+        isVacation: req.body.isVacation,
+        shiftEndTime: req.body.shiftEndTime,
+        actualStartTime: req.body.actualStartTime,
+        actualEndTime: req.body.actualEndTime,
         status: req.body.status,
         employee_id: req.body.employee_id
       }
-      console.log(newDay)
-      const addAttendance = await scheduleModel.create({...newDay});
+      const addAttendance = await scheduleModel.create({ ...newDay });
 
       res.status(200).json({
         status: "success",
@@ -81,15 +72,15 @@ const scheduleModel = require("../models/schedule"),
   editSchedule = async (req, res) => {
     try {
       const { id } = req.params;
-      const targetDate = req.body.date;
+      const targetDate = (req.body.month < 10 ? "0" : "") + req.body.month + '-' + (req.body.day < 10 ? "0" : "") + req.body.day + '-' + req.body.year;
       const data = {
         status: req.body.status,
-        shift_start_time: req.body.shiftstart,
-        shift_end_time: req.body.shiftend,
-        actual_start_time: req.body.actualstart,
-        actual_end_time: req.body.actualend
+        shiftStartTime: req.body.shiftStartTime,
+        shiftEndTime: req.body.shiftEndTime,
+        actualStartTime: req.body.actualStartTime,
+        actualEndTime: req.body.actualEndTime
       };
-      const schedule = await scheduleModel.findOneAndUpdate({ employee_id: id, date: targetDate }, data, { new: true });
+      await scheduleModel.findOneAndUpdate({ employee_id: id, date: targetDate }, data, { new: true });
       res.status(200).json({
         status: "success",
         data: "Updated schedule successfully",
@@ -103,8 +94,8 @@ const scheduleModel = require("../models/schedule"),
   };
 
 module.exports = {
-  scheduleList,
   userScheduleList,
   editSchedule,
-  addSchedule
+  addSchedule,
+  searchExistence
 };

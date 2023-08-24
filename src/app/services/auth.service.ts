@@ -42,7 +42,6 @@ export class AuthService {
   }
 
   logout() {
-    console.log("DSfdfsd");
     localStorage.removeItem('token');
     this.isLoginSubject.next(false);
     this._router.navigateByUrl('/login');

@@ -1,22 +1,23 @@
-import { Time } from '@angular/common';
-import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { Employee } from 'src/app/interfaces/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Schedule } from 'src/app/interfaces/schedule';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-attendance-schedule',
   templateUrl: './attendance-schedule.component.html',
   styleUrls: ['./attendance-schedule.component.css']
 })
+
 export class AttendanceScheduleComponent {
   employeeFirstName!: string;
   currentDate: string;
   selectedDate: string;
-  Schedule: Schedule[][] = [];
-  dailySchedule: Schedule[] = [];
+  schedule: Schedule[][] = [];
+  newDay: Schedule[] = [];
   employee_id!: string;
   scheduleData: any[] = [];
   employeeData!: Employee;
@@ -31,35 +32,21 @@ export class AttendanceScheduleComponent {
   constructor(private route: ActivatedRoute, private employeeService: EmployeeService, private scheduleService: ScheduleService) {
     this.currentDate = new Date().toISOString().substring(0, 7);
     this.selectedDate = this.currentDate;
-    
+    this.employee_id = this.route.snapshot.params["id"];
   }
 
   ngOnInit() {
-    this.employee_id = this.route.snapshot.params["id"];
-
     this.employeeService.getEmployeeData(this.employee_id).subscribe((res: any) => {
       this.employeeData = res.data.employeeData;
       this.name_abr = this.employeeData.firstname[0] + this.employeeData.lastname[0];
       this.employeeFirstName = this.employeeData.firstname;
     });
 
-    this.scheduleService.getEmployeeSchedule(this.employee_id).subscribe((res)=>{
-      this.scheduleData = res.data.userSchedule; 
-      console.log(res)
+    this.scheduleService.getEmployeeSchedule(this.employee_id).subscribe((res) => {
+      this.scheduleData = res.data.userSchedule;
       this.generateSchedule();
     })
-
-   
   }
-
-  isCurrentDate(day: { day: number, dayName: string, isVacation: boolean }): boolean {
-    const currentDate = new Date();
-    const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day.day);
-
-    return dayDate.toDateString() === currentDate.toDateString();
-  }
-
-
 
   generateSchedule(): void {
     const [year, month] = this.selectedDate.split('-').map(Number);
@@ -69,57 +56,59 @@ export class AttendanceScheduleComponent {
 
     let currentDay = startDate;
 
-    this.Schedule = [];
+    this.schedule = [];
 
     while (currentDay <= endDate) {
       const day: number = currentDay.getDate();
       const dayName: string = this.getDayName(currentDay.getDay());
       const isVacation: boolean = this.isOfficialVacation(currentDay, this.officialVacations);
 
-      if(this.scheduleData.length > 0){
-        let date =(month < 10 ? "0" : "") + month + '-' + (day < 10 ? "0" : "") + day + '-' + year;
-        this.scheduleData.filter((val:any,index:any) => {
-          if(val.date == date){
-            this.dailySchedule.push({
-              day,
-              dayName,
-              isVacation,
+      let scheduleEntry = {
+        day,
+        dayName,
+        isVacation,
+        status: '',
+        actualStartTime: '',
+        year,
+        month,
+        actualEndTime: '',
+        shiftStartTime: '08:00',
+        shiftEndTime: '16:00',
+      };
+
+      if (this.scheduleData.length > 0) {
+        let date = this.formatDate(month, day, year);
+
+        this.scheduleData.filter((val: any, index: any) => {
+          if (val.date == date) {
+            scheduleEntry = {
+              ...scheduleEntry,
               status: val.status,
-              actualstarttime: val.actualstarttime,
-              year,
-              month,
-              actualendtime: val.actualendtime,
-              shiftstarttime: '08:00',
-              shiftendtime: '16:00',
-              extratimes: val.extratimes
-            });
+              actualStartTime: val.actualStartTime,
+              actualEndTime: val.actualEndTime,
+            };
           }
           return 0;
         })
       }
 
-      this.dailySchedule.push({
-        day,
-        dayName,
-        isVacation,
-        status: '',
-        actualstarttime: '',
-        year,
-        month,
-        actualendtime: '',
-        shiftstarttime: '08:00',
-        shiftendtime: '16:00',
-        extratimes: 0
-      });
+      this.newDay.push(scheduleEntry);
 
       if (currentDay.getDay() === 6 || day === endDate.getDate()) {
-        this.Schedule.push(this.dailySchedule);
-        this.dailySchedule = []
+        this.schedule.push(this.newDay);
+        this.newDay = []
       }
 
       currentDay.setDate(currentDay.getDate() + 1);
     }
 
+  }
+
+  isCurrentDate(day: { day: number, dayName: string, isVacation: boolean }): boolean {
+    const currentDate = new Date();
+    const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day.day);
+
+    return dayDate.toDateString() === currentDate.toDateString();
   }
 
   isOfficialVacation(date: Date, officialVacations: Date[]): boolean {
@@ -130,38 +119,70 @@ export class AttendanceScheduleComponent {
 
   statuschange(e: any, weekNo: number, dayNo: number) {
     e.target.classList = e?.target.value;
-    const selectedRow = this.Schedule.flat()[weekNo];
+    const selectedRow = this.schedule.flat()[weekNo];
+
+    let date = this.formatDate(this.schedule[weekNo][dayNo]["month"], this.schedule[weekNo][dayNo]["day"], this.schedule[weekNo][dayNo]["year"])
 
     if (selectedRow.status === "present") {
-      selectedRow.actualstarttime = selectedRow.shiftstarttime;
+      this.schedule[weekNo][dayNo]["actualStartTime"] = "08:00";
     } else {
-      selectedRow.actualstarttime = ""; // Clear the actual start time for other statuses
+      this.schedule[weekNo][dayNo]["actualStartTime"] = "";
     }
+    let data = { ...this.schedule[weekNo][dayNo], "employee_id": this.employee_id };
 
-    let data = { ...this.Schedule[weekNo][dayNo], "employee_id": this.employee_id };
+    this.scheduleService.checkExistence(this.employee_id, { "date": date }).subscribe((res) => {
+      if (res.data) {
+        this.editSchedule(weekNo, dayNo)
+      } else {
+        this.scheduleService.addEmployeeSchedule(data).subscribe(
+          {
+            next: res => {
+              Swal.fire(
+                {
+                  icon: "success",
+                  title: "Attendance Done",
+                  showConfirmButton: false,
+                })
+            },
+            error: err => {
+              Swal.fire({
+                icon: "error",
+                title: "There is an error",
+                showConfirmButton: false
+              });
+            },
+          })
+      }
+    })
+  }
 
-    this.scheduleService.addEmployeeSchedule(data).subscribe(
-      {
-        next: res => {
-          Swal.fire(
-            {
-              icon: "success",
-              title: "Attendance Done",
-              showConfirmButton: false,
-            })
-        },
-        error: err => {
-          Swal.fire({
-            icon: "error",
-            title: "There is an error",
-            showConfirmButton: false
-          });
-        },
-      })
+  editSchedule(weekNo: number, dayNo: number): void {
+    this.scheduleService.updateEmployeeSchedule(this.employee_id, this.schedule[weekNo][dayNo]).subscribe({
+      next: res => {
+        Swal.fire(
+          {
+            icon: "success",
+            title: "Attendance updated successfully",
+            showConfirmButton: false,
+          })
+      },
+      error: err => {
+        Swal.fire({
+          icon: "error",
+          title: "There is an error",
+          showConfirmButton: false
+        });
+      },
+    });
   }
 
   getDayName(dayIndex: number): string {
     const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return weekdays[dayIndex];
+  }
+
+  formatDate(month: number, day: number, year: number) {
+    return (month < 10 ? "0" : "") + month + '-' +
+      (day < 10 ? "0" : "") + day + '-' + year;
   }
 }

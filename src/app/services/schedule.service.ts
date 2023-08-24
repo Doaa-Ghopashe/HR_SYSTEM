@@ -20,4 +20,8 @@ export class ScheduleService {
     return this._httpClinet.put(`http://localhost:5000/scheduler/${id}`, newData)
   }
 
+  checkExistence(id: any, date: any): Observable<any> {
+    return this._httpClinet.post(`http://localhost:5000/scheduler/${id}`, date)
+  }
+
 }

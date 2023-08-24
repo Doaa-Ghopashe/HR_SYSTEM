@@ -7,17 +7,11 @@ const express = require('express');
 
     cors = require('./Middleware/corsmiddelware'),
 
-
-    
-    auth = require('./Middleware/auth'),
-
     user = require('./routes/user'),
 
     employee = require('./routes/employee'),
 
     schedule = require('./routes/schedule'),
-
-    error_handler = require('./Middleware/errorhandler'),
 
     app_server = express(),
 
@@ -36,7 +30,6 @@ app_server.use('/employees',  employee);
 
 app_server.use('/scheduler', schedule);
 
-app_server.use(error_handler);
 
 
 app_server.listen(PORT, (err) => {
@@ -45,7 +38,7 @@ app_server.listen(PORT, (err) => {
     return console.log(err);
 })
 
-mongoose.connect(Mongoose_URL, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+mongoose.connect(Mongoose_URL, { useNewUrlParser: true, useUnifiedTopology: true , useFindAndModify: false }, (err) => {
     if (!err) return console.log("the database is connected");
     
     return console.log(err);
