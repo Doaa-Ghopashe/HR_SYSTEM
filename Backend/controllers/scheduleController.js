@@ -49,18 +49,19 @@ const scheduleModel = require("../models/schedule"),
   },
 
   addSchedule = async (req, res) => {
-
     try {
       let newDay = {
-        date: req.body.date,
-        shift_start_time: req.body.shiftstart,
-        shift_end_time: req.body.shiftend,
+        date: (req.body.month < 10 ? "0" : "") + req.body.month + '-' + (req.body.day < 10 ? "0" : "") + req.body.day + '-' + req.body.year,
+        shift_start_time: req.body.shiftstarttime,
+        isVacation:req.body.isVacation,
+        shift_end_time: req.body.shiftendtime,
         actual_start_time: req.body.actualstart,
         actual_end_time: req.body.actualend,
-        status: req.body.status
+        status: req.body.status,
+        employee_id: req.body.employee_id
       }
 
-      const addAttendance = await scheduleModel.create(newDay);
+      const addAttendance = await scheduleModel.create({...newDay});
 
       res.status(200).json({
         status: "success",

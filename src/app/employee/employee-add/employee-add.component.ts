@@ -45,7 +45,7 @@ export class EmployeeAddComponent {
       password: this.employeeForm.get('password')?.value
     };
 
-    this.employeeService.add(employeeData).subscribe(
+    this.employeeService.addEmployee(employeeData).subscribe(
       {
         next: res => {
           Swal.fire(

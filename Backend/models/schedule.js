@@ -4,11 +4,12 @@ const scheduleSchema = new mongoose.Schema(
     {
         employee_id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "employee", unique: false },
         status: { type: String },
-        date: { type: Date, required: true },
-        shift_start_time: { type: Date, required: true },
-        shift_end_time: { type: Date, required: true },
-        actual_start_time: { type: Date },
-        actual_end_time: { type: Date },
+        date: { type: String, required: true },
+        shift_start_time: { type: String, required: true },
+        shift_end_time: { type: String, required: true },
+        actual_start_time: { type: String },
+        actual_end_time: { type: String },
+        isVaction:{type:Boolean}
     },
     { timestamps: true }
 );

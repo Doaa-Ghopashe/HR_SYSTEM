@@ -60,8 +60,8 @@ const employeeModel = require('../models/employee'),
         try {
             const { id } = req.params;
             const data = {
-                firstName: req.body.firstname,
-                lastName: req.body.lastname,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
                 email: req.body.email,
                 role: req.body.role,
             };

@@ -1,7 +1,7 @@
 export interface Employee {
-    id:number;
-    first_name:string;
-    last_name:string;
+    _id:string;
+    firstname:string;
+    lastname:string;
     email:string;
     role:string;
     password?:string;

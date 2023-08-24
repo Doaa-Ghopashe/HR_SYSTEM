@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const employeeSchema = new mongoose.Schema({
-  firstName: { type: String, trim: true, maxLength: 10, minLength: 3 },
+  firstname: { type: String,required: true, trim: true, maxLength: 10, minLength: 3 },
 
-  lastName: { type: String, trim: true, maxLength: 10, minLength: 3 },
+  lastname: { type: String,required: true, trim: true, maxLength: 10, minLength: 3 },
 
   email: { type: String, required: true, unique: true, match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
 

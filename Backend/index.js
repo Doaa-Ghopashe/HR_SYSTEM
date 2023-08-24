@@ -34,7 +34,7 @@ app_server.use(user);
 
 app_server.use('/employees',  employee);
 
-app_server.use('/schedule', schedule);
+app_server.use('/scheduler', schedule);
 
 app_server.use(error_handler);
 

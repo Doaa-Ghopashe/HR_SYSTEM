@@ -13,18 +13,18 @@
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody *ngFor="let employee of employees">
+        <tbody *ngFor="let employee of employees , let i = index">
             <tr>
-                <td>{{employee.id}}</td>
-                <td>{{employee.first_name}} {{employee.last_name}}</td>
+                <td>{{i+1}}</td>
+                <td>{{employee.firstname}} {{employee.lastname}}</td>
                 <td>{{employee.email}}</td>
                 <td>{{employee.role}}</td>
                 <td class="text-center">
-                    <a class="btn btn-warning mx-3" [routerLink]="['edit',employee.id]">
+                    <a class="btn btn-warning mx-3" [routerLink]="['edit',employee._id]">
                         Edit Info
                         <i class="fa-solid fa-user-pen"></i>
                     </a>
-                    <a class="btn btn-info" [routerLink]="['attendance',employee.id]">
+                    <a class="btn btn-info" [routerLink]="['attendance',employee._id]">
                        Attendance Schedule
                        <i class="fa-solid fa-business-time"></i>
                     </a>

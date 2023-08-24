@@ -1,15 +1,14 @@
 const express = require('express'),
 
-    reservedBookRouter = express.Router(),
+    scheduleController = require('../controllers/scheduleController'),
 
-    scheduleController = require('../controllers/scheduleController');
+    router = express.Router();
 
-reservedBookRouter.get('/:id', scheduleController.scheduleList);
 
-reservedBookRouter.get('/', scheduleController.userScheduleList);
+router.get('/:id', scheduleController.userScheduleList);
 
-reservedBookRouter.post('/', scheduleController.addSchedule);
+router.post('/', scheduleController.addSchedule);
 
-reservedBookRouter.put('/:id', scheduleController.editSchedule);
+router.put('/:id', scheduleController.editSchedule);
 
-module.exports = reservedBookRouter;
+module.exports = router;
