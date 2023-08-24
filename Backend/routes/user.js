@@ -1,3 +1,5 @@
+const userModel = require('../models/user');
+
 const express = require('express'),
 
   bcrypt = require('bcrypt'),
@@ -8,7 +10,6 @@ const express = require('express'),
 
   router = express.Router();
 
-// Login
 router.post('/login', async (req, res) => {
   try {
     // Get user input
@@ -48,7 +49,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-//logout
 router.all("/logout", (req, res) => {
   // req.session.destroy();
   localStorage.removeItem('token');
@@ -56,6 +56,23 @@ router.all("/logout", (req, res) => {
   // res.redirect('/login');
 });
 
+router.post('/user', async (req, res) => {
+  try {
 
+    const userData = await userModel.create({ ...req.body });
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        userData,
+      },
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: "failed",
+      err: error.message,
+    });
+  }
+})
 
 module.exports = router;

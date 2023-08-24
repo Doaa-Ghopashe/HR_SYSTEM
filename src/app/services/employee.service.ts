@@ -15,7 +15,12 @@ export class EmployeeService {
   }
 
   addEmployee(employeeData: any): Observable<any> {
+
     return this._httpClinet.post(`http://localhost:5000/employees`, employeeData)
+  }
+
+  addUser(employeeData:any):Observable <any>{
+    return this._httpClinet.post(`http://localhost:5000/user`, employeeData)
   }
 
   updateEmployee(id: any, newData: any): Observable<any> {
