@@ -7,8 +7,6 @@ const express = require('express');
 
     cors = require('./Middleware/corsmiddelware'),
 
-    user = require('./routes/user'),
-
     employee = require('./routes/employee'),
 
     schedule = require('./routes/schedule'),
@@ -23,8 +21,6 @@ const express = require('express');
 app_server.use(express.json());
 
 app_server.use(cors);
-
-app_server.use(user);
 
 app_server.use('/employees',  employee);
 
