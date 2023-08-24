@@ -2,8 +2,11 @@ const employeeModel = require('../models/employee'),
 
     add = async (req, res) => {
         try {
+            const { password, ...otherData } = req.body;
 
-            const employeeData = await employeeModel.create({ ...req.body });
+            const encryptedPassword = await bcrypt.hash(password, 10);
+
+            const employeeData = await employeeModel.create({ password: encryptedPassword, ...otherData });
 
             res.status(200).json({
                 status: "success",

@@ -1,12 +1,10 @@
-const userModel = require('../models/user');
-
 const express = require('express'),
 
   bcrypt = require('bcrypt'),
 
   jwt = require('jsonwebtoken'),
 
-  User = require("../models/user"),
+  Employee = require("../models/employee"),
 
   router = express.Router();
 
@@ -21,7 +19,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Find the user in the database
-    const user = await User.findOne({ email });
+    const user = await Employee.findOne({ email });
 
     if (user) {
       // Compare the entered password with the hashed password in the database
@@ -56,23 +54,5 @@ router.all("/logout", (req, res) => {
   // res.redirect('/login');
 });
 
-router.post('/user', async (req, res) => {
-  try {
-
-    const userData = await userModel.create({ ...req.body });
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        userData,
-      },
-    });
-  } catch (error) {
-    res.status(404).json({
-      status: "failed",
-      err: error.message,
-    });
-  }
-})
 
 module.exports = router;

@@ -7,7 +7,9 @@ const employeeSchema = new mongoose.Schema({
 
   email: { type: String, required: true, unique: true, match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
 
-  role: { type: String, required: true, enum: ['HR', 'normal employee'] },  
+  role: { type: String, required: true, enum: ['HR', 'normal employee'] },
+  
+  password: { type: String, match: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/ }
 });
 
 employeeModel = mongoose.model('Employee', employeeSchema);
