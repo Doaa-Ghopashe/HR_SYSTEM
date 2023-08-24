@@ -1,0 +1,58 @@
+:host{
+    width: 100%;
+    background:rgba(220, 220, 220, 0.591)
+}
+.widget{
+    border-radius: 12px;
+    z-index: 1;
+    padding-top: 15px;
+    padding-left: 15px; 
+    background-color: white;
+    box-shadow: -2px 8px 4px rgb(200, 200, 200)
+}
+.widget p{
+    text-indent: 30px;
+}
+.icon{
+    background: linear-gradient(rgb(0, 200, 255),rgb(74, 142, 209));
+    font-size: 35px;
+    top: -15px;
+    left: -15px;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+.absentdays{
+    background: linear-gradient(rgb(221, 35, 35),rgb(184, 77, 31));
+}
+.latedays{
+    background: linear-gradient(yellow,orange);
+}
+.presentdays{
+    background: linear-gradient(rgb(17, 255, 0),rgb(12, 177, 103));
+
+}
+.title3{
+    position: absolute;
+    bottom: -36px;
+    font-size: 20px;
+    text-shadow: -2px 3px 2px rgba(132, 131, 131, 0.517);
+    font-weight: 500;
+    left: 0;
+    text-align: center;
+    width: 100%;
+}
+.chart1{
+    background-color: white;
+    width: fit-content;
+}
+.ct-chart{
+    height: 200px;
+}
+.ct-chart img{
+    height: 100%;
+    object-fit: contain;
+    background:linear-gradient(rgba(146, 138, 237, 0.335),rgba(123, 186, 237, 0.261))
+}
+.card{
+    height: 380px;
+}

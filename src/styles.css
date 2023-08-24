@@ -10,6 +10,9 @@ img {
 
 main {
     height: 100%;
+    background-image: url("assets/bg6.png");
+    background-size: cover  ;
+    background-repeat: no-repeat;
 }
 
 :host {

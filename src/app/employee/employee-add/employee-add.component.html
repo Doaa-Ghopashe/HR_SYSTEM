@@ -1,8 +1,8 @@
-<div class="container-fluid py-3">
-    <h1 class="text-center">Add Employee</h1>
-    <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()">
+<div class="container addform py-3">
+    <h1 class="text-center mb-4">Add Employee</h1>
+    <form [formGroup]="employeeForm" method="post" enctype="multipart/form-data" class="px-3" (ngSubmit)="addEmployee()">
         <div class="mb-3">
-            <input type="text" formControlName="firstName" class="form-control" placeholder="Enter The First Name" id="first_name">
+            <input type="text" formControlName="firstName" class="form-control rounded-0" placeholder="Enter The First Name" id="first_name">
 
             <div id="firstnameHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" 
             *ngIf=" employeeForm.controls['firstName'].touched && employeeForm.controls['firstName'].invalid">
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <input type="text" formControlName="lastName" class="form-control" placeholder="Enter The Last Name" id="last_name">
+            <input type="text" formControlName="lastName" class="form-control rounded-0"  placeholder="Enter The Last Name" id="last_name">
 
             <div id="lastnameHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
             employeeForm.controls['lastName'].touched &&
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <input type="email" formControlName="email" class="form-control" placeholder="Enter The Email Address" id="email">
+            <input type="email" formControlName="email" class="form-control rounded-0" placeholder="Enter The Email Address" id="email">
 
             <div id="emailHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
             employeeForm.controls['email'].touched &&
@@ -53,14 +53,10 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="role-list" class="form-label">Role</label>
-            <select id="role-list" formControlName="role" class="form-select">
-                <option selected value="HR">HR</option>
-                <option value="financial_officer">Financial Officer</option>
-                <option value="accountant">Accountant</option>
-                <option value="devops">DevOps</option>
-                <option value="customer_service">Customer Service</option>
-                <option value="marketing_coordinator">Marketing Coordinator</option>
+            <select id="role-list" formControlName="role" class="form-select rounded-0" (change)="changeRole($event)">
+                <option selected disabled value="">--choose employee role--</option>
+                <option  value="HR">HR</option>
+                <option value="normal employee">Normal Employee</option>
             </select>
 
             <div id="roleHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
@@ -74,8 +70,7 @@
             </div>
         </div>
         <div class="mb-3" *ngIf="selectedRole=='HR'">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" formControlName="password" id="password">
+            <input type="password" class="form-control rounded-0" formControlName="password" placeholder="Enter the password" id="password">
 
             <div id="passwordHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
             employeeForm.controls['password'].touched &&

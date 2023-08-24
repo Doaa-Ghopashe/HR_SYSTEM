@@ -32,9 +32,9 @@ app_server.use(cors);
 
 app_server.use(user);
 
-app_server.use('/employess', auth.verifyToken, employee);
+app_server.use('/employees',  employee);
 
-app_server.use('/schedule', auth.verifyToken, schedule);
+app_server.use('/schedule', schedule);
 
 app_server.use(error_handler);
 

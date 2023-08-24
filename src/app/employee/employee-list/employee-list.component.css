@@ -5,3 +5,7 @@
 tr{
     vertical-align: middle;
 }
+#employeetable{
+    border-radius: 10px;
+    overflow: hidden;
+}

@@ -5,6 +5,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
 import { loggedoutGuardGuard } from './guards/loggedout-guard.guard';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 const routes: Routes = [
   {
     path: '',
@@ -19,6 +20,11 @@ const routes: Routes = [
     path: 'employee',
     loadChildren:()=>
     import('./employee/employee.module').then((m)=>m.EmployeeModule),
+    canActivate:[authGuardGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
     canActivate:[authGuardGuard]
   },
   {
