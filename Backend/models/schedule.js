@@ -7,8 +7,8 @@ const scheduleSchema = new mongoose.Schema(
         date: { type: String, required: true },
         shift_start_time: { type: String, required: true },
         shift_end_time: { type: String, required: true },
-        actual_start_time: { type: String },
-        actual_end_time: { type: String },
+        actualstarttime: { type: String },
+        actualendtime: { type: String },
         isVaction:{type:Boolean}
     },
     { timestamps: true }

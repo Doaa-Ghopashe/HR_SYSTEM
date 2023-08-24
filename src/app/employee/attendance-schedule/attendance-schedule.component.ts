@@ -18,7 +18,7 @@ export class AttendanceScheduleComponent {
   Schedule: Schedule[][] = [];
   dailySchedule: Schedule[] = [];
   employee_id!: string;
-  scheduleData: Schedule[] = [];
+  scheduleData: any[] = [];
   employeeData!: Employee;
   name_abr!: string;
   officialVacations: Date[] = [
@@ -31,7 +31,7 @@ export class AttendanceScheduleComponent {
   constructor(private route: ActivatedRoute, private employeeService: EmployeeService, private scheduleService: ScheduleService) {
     this.currentDate = new Date().toISOString().substring(0, 7);
     this.selectedDate = this.currentDate;
-    this.generateSchedule();
+    
   }
 
   ngOnInit() {
@@ -44,9 +44,12 @@ export class AttendanceScheduleComponent {
     });
 
     this.scheduleService.getEmployeeSchedule(this.employee_id).subscribe((res)=>{
+      this.scheduleData = res.data.userSchedule; 
       console.log(res)
-      this.scheduleData = res; 
+      this.generateSchedule();
     })
+
+   
   }
 
   isCurrentDate(day: { day: number, dayName: string, isVacation: boolean }): boolean {
@@ -65,7 +68,6 @@ export class AttendanceScheduleComponent {
     const endDate = new Date(year, month, 0);
 
     let currentDay = startDate;
-    // let week: { day: number, dayName: string, isVacation: boolean, status: string, actualstarttime: string }[] = [];
 
     this.Schedule = [];
 
@@ -74,6 +76,27 @@ export class AttendanceScheduleComponent {
       const dayName: string = this.getDayName(currentDay.getDay());
       const isVacation: boolean = this.isOfficialVacation(currentDay, this.officialVacations);
 
+      if(this.scheduleData.length > 0){
+        let date =(month < 10 ? "0" : "") + month + '-' + (day < 10 ? "0" : "") + day + '-' + year;
+        this.scheduleData.filter((val:any,index:any) => {
+          if(val.date == date){
+            this.dailySchedule.push({
+              day,
+              dayName,
+              isVacation,
+              status: val.status,
+              actualstarttime: val.actualstarttime,
+              year,
+              month,
+              actualendtime: val.actualendtime,
+              shiftstarttime: '08:00',
+              shiftendtime: '16:00',
+              extratimes: val.extratimes
+            });
+          }
+          return 0;
+        })
+      }
 
       this.dailySchedule.push({
         day,
