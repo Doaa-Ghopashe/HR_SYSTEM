@@ -1,4 +1,4 @@
-const { body, check } = require('express-validator');
+const { body } = require('express-validator');
 
 const addEmployeeValidator = [
     body('firstname').isString().withMessage("this field accept string only")
@@ -17,4 +17,4 @@ const addEmployeeValidator = [
 
 ]
 
-module.exports = { addEmployeeValidator }
+module.exports =  addEmployeeValidator 

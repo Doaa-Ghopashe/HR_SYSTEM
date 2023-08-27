@@ -4,7 +4,7 @@ const express = require('express'),
 
     router = express.Router(),
 
-    { addEmployeeValidator, updateEmployeeValidator } = require('../Middleware/validators/validator.js'),
+    { addEmployeeValidator } = require('../Middleware/validators/validator.js'),
 
     { validate } = require('../Middleware/validation/validator.js');
 
@@ -14,6 +14,6 @@ router.get('/:id', employeeController.getById);
 
 router.post('/', validate(addEmployeeValidator), employeeController.add);
 
-router.put('/:id', validate(updateEmployeeValidator), employeeController.edit);
+router.put('/:id', employeeController.edit);
 
 module.exports = router;
