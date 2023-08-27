@@ -119,11 +119,10 @@ export class AttendanceScheduleComponent {
 
   statuschange(e: any, weekNo: number, dayNo: number) {
     e.target.classList = e?.target.value;
-    const selectedRow = this.schedule.flat()[weekNo];
 
-    let date = this.formatDate(this.schedule[weekNo][dayNo]["month"], this.schedule[weekNo][dayNo]["day"], this.schedule[weekNo][dayNo]["year"])
+    let date = this.formatDate(this.schedule[weekNo][dayNo]["month"], this.schedule[weekNo][dayNo]["day"], this.schedule[weekNo][dayNo]["year"]);
 
-    if (selectedRow.status === "present") {
+    if (e?.target.value === "present") {
       this.schedule[weekNo][dayNo]["actualStartTime"] = "08:00";
     } else {
       this.schedule[weekNo][dayNo]["actualStartTime"] = "";
