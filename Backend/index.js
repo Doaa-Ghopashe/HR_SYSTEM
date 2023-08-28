@@ -11,6 +11,8 @@ const express = require('express');
 
     schedule = require('./routes/schedule'),
 
+    user = require('./routes/user'),
+
     app_server = express(),
 
     PORT = process.env.SERVER_PORT,
@@ -21,6 +23,8 @@ const express = require('express');
 app_server.use(express.json());
 
 app_server.use(cors);
+
+app_server.use(user);
 
 app_server.use('/employees',  employee);
 
