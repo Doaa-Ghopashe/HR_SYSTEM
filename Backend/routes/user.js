@@ -49,10 +49,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.all("/logout", (req, res) => {
-  // req.session.destroy();
   localStorage.removeItem('token');
-  // jwt.destroy(token)
-  // res.redirect('/login');
 });
 
 

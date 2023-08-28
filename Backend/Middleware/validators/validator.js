@@ -17,4 +17,4 @@ const addEmployeeValidator = [
 
 ]
 
-module.exports =  addEmployeeValidator 
+module.exports =  {addEmployeeValidator} 
