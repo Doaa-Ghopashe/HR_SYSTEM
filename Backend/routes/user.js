@@ -20,36 +20,28 @@ router.post('/login', async (req, res) => {
 
     // Find the user in the database
     const user = await Employee.findOne({ email });
-   
+
     if (user) {
-        
-      // Compare the entered password with the hashed password in the database
+
       const isPasswordValid = await bcrypt.compare(password, user.password);
-        console.log(password)
+
       if (isPasswordValid) {
-        // Create a token
+
         const token = jwt.sign(
           { user_id: user._id, email: user },
           process.env.TOKEN_KEY,
           { expiresIn: '2h' }
         );
-        // Save the token to the user document
-        user.token = token;
 
-        // Return the user with the token
-        return res.status(200).json(user);
+        user['token'] = token;
+
+        return res.status(200).json({ token, username: user.firstname + ' ' + user.lastname });
       }
     }
-
-    // Invalid credentials
     return res.status(400).send('Invalid credentials');
   } catch (err) {
     return res.status(500).send('Internal Server Error');
   }
-});
-
-router.all("/logout", (req, res) => {
-  localStorage.removeItem('token');
 });
 
 
