@@ -26,8 +26,10 @@ export class LoginComponent {
     }
     this.auth.login(this.loginform.value).subscribe(
       {
+        
         next: res => {
           localStorage.setItem("token", res.token);
+          localStorage.setItem("username", res.username);
           this.auth.setLoggedIn(true)
           this._router.navigateByUrl('/dashboard');
         },

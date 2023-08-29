@@ -8,11 +8,11 @@ import Swal from "sweetalert2";
   styleUrls: ['./employee-add.component.css']
 })
 export class EmployeeAddComponent {
-  employeeForm!: FormGroup;
+  addEmployeeForm!: FormGroup;
   selectedRole!: string;
 
   constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
-    this.employeeForm = this.fb.group({
+    this.addEmployeeForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -22,27 +22,27 @@ export class EmployeeAddComponent {
   }
 
   ngOnInit() {
-    this.employeeForm.get('role')?.valueChanges.subscribe((value) => {
+    this.addEmployeeForm.get('role')?.valueChanges.subscribe((value) => {
       if (value !== "HR") {
-        this.employeeForm.get('password')?.clearValidators();
+        this.addEmployeeForm.get('password')?.clearValidators();
       } else {
-        this.employeeForm.get('password')?.setValidators([
+        this.addEmployeeForm.get('password')?.setValidators([
           Validators.required,
           Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
           Validators.maxLength(12)
         ]);
       }
-      this.employeeForm.get('password')?.updateValueAndValidity();
+      this.addEmployeeForm.get('password')?.updateValueAndValidity();
     });
   }
 
   addEmployee() {
     const employeeData = {
-      firstname: this.employeeForm.get('firstName')?.value,
-      lastname: this.employeeForm.get('lastName')?.value,
-      email: this.employeeForm.get('email')?.value,
-      role: this.employeeForm.get('role')?.value,
-      password: this.employeeForm.get('password')?.value
+      firstname: this.addEmployeeForm.get('firstName')?.value,
+      lastname: this.addEmployeeForm.get('lastName')?.value,
+      email: this.addEmployeeForm.get('email')?.value,
+      role: this.addEmployeeForm.get('role')?.value,
+      password: this.addEmployeeForm.get('password')?.value
     };
 
     this.employeeService.addEmployee(employeeData).subscribe(

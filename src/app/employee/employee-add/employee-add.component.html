@@ -1,18 +1,18 @@
 <div class="container addform py-3">
     <h1 class="text-center mb-4">Add Employee</h1>
-    <form [formGroup]="employeeForm" method="post" enctype="multipart/form-data" class="px-3" (ngSubmit)="addEmployee()">
+    <form [formGroup]="addEmployeeForm" method="post" enctype="multipart/form-data" class="px-3" (ngSubmit)="addEmployee()">
         <div class="mb-3">
             <input type="text" formControlName="firstName" class="form-control rounded-0" placeholder="Enter The First Name" id="first_name">
 
             <div id="firstnameHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" 
-            *ngIf=" employeeForm.controls['firstName'].touched && employeeForm.controls['firstName'].invalid">
-                <span *ngIf="employeeForm.controls['firstName'].errors?.['required']">
+            *ngIf=" addEmployeeForm.controls['firstName'].touched && addEmployeeForm.controls['firstName'].invalid">
+                <span *ngIf="addEmployeeForm.controls['firstName'].errors?.['required']">
                     This field is required.
                 </span>
-                <span *ngIf="employeeForm.controls['firstName'].errors?.['maxlength']"> 
+                <span *ngIf="addEmployeeForm.controls['firstName'].errors?.['maxlength']"> 
                     It must be less than 10 characters.
                 </span>
-                <span *ngIf="employeeForm.controls['firstName'].errors?.['minlength']"> 
+                <span *ngIf="addEmployeeForm.controls['firstName'].errors?.['minlength']"> 
                     It must be more than 3 characters 
                 </span>
             </div>
@@ -21,16 +21,16 @@
             <input type="text" formControlName="lastName" class="form-control rounded-0"  placeholder="Enter The Last Name" id="last_name">
 
             <div id="lastnameHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
-            employeeForm.controls['lastName'].touched &&
-            employeeForm.controls['lastName'].invalid
+            addEmployeeForm.controls['lastName'].touched &&
+            addEmployeeForm.controls['lastName'].invalid
           ">
-                <span *ngIf="employeeForm.controls['lastName'].errors?.['required']">
+                <span *ngIf="addEmployeeForm.controls['lastName'].errors?.['required']">
                     This field is required
                 </span>
-                <span *ngIf="employeeForm.controls['lastName'].errors?.['maxlength']"> 
+                <span *ngIf="addEmployeeForm.controls['lastName'].errors?.['maxlength']"> 
                     It must be less than 10 characters.
                 </span>
-                <span *ngIf="employeeForm.controls['lastName'].errors?.['minlength']"> 
+                <span *ngIf="addEmployeeForm.controls['lastName'].errors?.['minlength']"> 
                     It must be more than 3 characters.
                 </span>
 
@@ -40,13 +40,13 @@
             <input type="email" formControlName="email" class="form-control rounded-0" placeholder="Enter The Email Address" id="email">
 
             <div id="emailHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
-            employeeForm.controls['email'].touched &&
-            employeeForm.controls['email'].invalid
+            addEmployeeForm.controls['email'].touched &&
+            addEmployeeForm.controls['email'].invalid
           ">
-                <span *ngIf="employeeForm.controls['email'].errors?.['required']">
+                <span *ngIf="addEmployeeForm.controls['email'].errors?.['required']">
                     This field is required.
                 </span>
-                <span *ngIf="employeeForm.controls['email'].errors?.['email']"> 
+                <span *ngIf="addEmployeeForm.controls['email'].errors?.['email']"> 
                     It must be like this pattern User@Example.Com .
                 </span>
 
@@ -60,10 +60,10 @@
             </select>
 
             <div id="roleHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
-            employeeForm.controls['role'].touched &&
-            employeeForm.controls['role'].invalid
+            addEmployeeForm.controls['role'].touched &&
+            addEmployeeForm.controls['role'].invalid
           ">
-                <span *ngIf="employeeForm.controls['role'].errors?.['required']">
+                <span *ngIf="addEmployeeForm.controls['role'].errors?.['required']">
                     This field is required.
                 </span>
 
@@ -73,21 +73,21 @@
             <input type="password" class="form-control rounded-0" formControlName="password" placeholder="Enter the password" id="password">
 
             <div id="passwordHelp" class="errors form-text bg-danger text-bg-danger d-flex flex-wrap align-items-center px-3" *ngIf="
-            employeeForm.controls['password'].touched &&
-            employeeForm.controls['password'].invalid">
-                <span *ngIf="employeeForm.controls['password'].errors?.['required']">
+            addEmployeeForm.controls['password'].touched &&
+            addEmployeeForm.controls['password'].invalid">
+                <span *ngIf="addEmployeeForm.controls['password'].errors?.['required']">
                     This field is required.
                 </span>
                 <br>
-                <span *ngIf="employeeForm.controls['password'].errors?.['pattern']">
+                <span *ngIf="addEmployeeForm.controls['password'].errors?.['pattern']">
                     Password must be at least 8 characters long and contain at least one letter and one digit.
                 </span>
                 <br>
-                <span *ngIf="employeeForm.controls['password'].errors?.['maxlength']">
+                <span *ngIf="addEmployeeForm.controls['password'].errors?.['maxlength']">
                      It must be less than 12 characters.
                 </span>
             </div>
         </div>
-        <button type="submit" class="btn btn-success d-block m-auto" [disabled]="employeeForm.invalid">Add</button>
+        <button type="submit" class="btn btn-success d-block m-auto" [disabled]="addEmployeeForm.invalid">Add</button>
     </form>
 </div>

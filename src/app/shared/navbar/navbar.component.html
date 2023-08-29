@@ -7,12 +7,12 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item d-flex align-items-center" *ngIf="isloggedin">
+                <li class="nav-item d-flex align-items-center" *ngIf="isLoggedIn">
                     <i class="fa-solid fa-user"></i>
                     <a class="nav-link text-white" routerLinkActive="active" [routerLink]="['login']">Login</a>
                 </li>
-                <li class="nav-item d-flex align-items-center" *ngIf="isloggedout">
-                    <span class="bg-success rounded-circle p-2">DA</span>
+                <li class="nav-item d-flex align-items-center" *ngIf="isLoggedOut">
+                    <span class="bg-success rounded-circle p-2">{{nameFirstChar}}{{nameSecondChar}}</span>
                     <button class="nav-link text-white" (click)="logout()">Logout</button>
                 </li>
             </ul>
