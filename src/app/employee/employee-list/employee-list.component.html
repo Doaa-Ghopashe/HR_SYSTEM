@@ -13,8 +13,8 @@
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody *ngFor="let employee of employees , let i = index">
-            <tr>
+        <tbody>
+            <tr *ngFor="let employee of employees , let i = index">
                 <td>{{i+1}}</td>
                 <td>{{employee.firstname}} {{employee.lastname}}</td>
                 <td>{{employee.email}}</td>
